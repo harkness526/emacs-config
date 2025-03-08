@@ -6,7 +6,7 @@
  '(custom-safe-themes
    '("456697e914823ee45365b843c89fbc79191fdbaff471b29aad9dcbe0ee1d5641" "6f1f6a1a3cff62cc860ad6e787151b9b8599f4471d40ed746ea2819fcd184e1a" "dccf4a8f1aaf5f24d2ab63af1aa75fd9d535c83377f8e26380162e888be0c6a9" "4ade6b630ba8cbab10703b27fd05bb43aaf8a3e5ba8c2dc1ea4a2de5f8d45882" "11819dd7a24f40a766c0b632d11f60aaf520cf96bd6d8f35bae3399880937970" "3784baeeadd1fefff034f2eeae697982a8de36702b74533917bac30400bc93f6" default))
  '(package-selected-packages
-   '(doom-themes dracula-theme multiple-cursors company lsp-mode eglot magit smooth-scroll toml-mode key-chord rust-mode move-text vterm mood-one-theme)))
+   '(dracula-theme multiple-cursors company lsp-mode eglot  smooth-scroll toml-mode key-chord rust-mode move-text vterm mood-one-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -18,6 +18,10 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+(package-install-selected-packages)
+
 (global-display-line-numbers-mode)
 (column-number-mode)
 
@@ -28,6 +32,8 @@
         (indent-region (region-beginning) (region-end))
       (indent-region (line-beginning-position) (line-end-position)))
     (setq deactivate-mark deactivate)))
+
+
 
 (advice-add 'move-text-up :after 'indent-region-advice)
 (advice-add 'move-text-down :after 'indent-region-advice)
@@ -50,8 +56,8 @@
 (load-theme 'mood-one)
 
 (require 'rust-mode)
-
 (require 'multiple-cursors)
+
 ;; (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
@@ -62,6 +68,7 @@
 (keymap-global-set "C-t" 'vterm)
 
 (require 'smooth-scroll)
+
 (smooth-scroll-mode t)
 
 (global-set-key [(control  down)]  'scroll-up-1)
